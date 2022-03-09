@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/AlejandraCaicedo/project-nodejs/issues"
   },
-  "homepage": "https://github.com/AlejandraCaicedo/project-nodejs#readme"
+  "homepage": "https://github.com/AlejandraCaicedo/project-nodejs#readme",
+  "dependencies": {
+    "axios": "^0.26.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1"
+  }
 }
