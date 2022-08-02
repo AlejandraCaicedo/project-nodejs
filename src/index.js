@@ -1,40 +1,45 @@
-"use strict";
+'use strict';
 
-const { SHOW, EPISODES } = require("./URL");
-const axios = require("axios");
+const { SHOW, EPISODES } = require('./URL');
+const axios = require('axios');
 
 async function getData(keyword) {
-  try {
-    const response = await axios.get(`${SHOW}${keyword}`);
-    const data = await response.data;
+	try {
+		const response = await axios.get(`${SHOW}${keyword}`);
+		const data = await response.data;
 
-    const firstData = data[0];
-    const firstShow = firstData.show;
+		const firstData = data[0];
+		const firstShow = firstData.show;
 
-    let episodes = await getEpisodes(firstShow.id);
+		console.log(firstShow);
 
-    for (const episode of episodes) {
-      episode.idShow = firstShow.id;
-    }
+		let episodes = await getEpisodes(firstShow.id);
 
-    console.log(episodes);
-    
-  } catch (err) {
-    console.log(err.message);
-  }
+		for (const episode of episodes) {
+			episode.idShow = firstShow.id;
+		}
+
+		console.log('------------------------------------');
+
+		firstShow.episodes = episodes;
+
+		console.log(firstShow);
+	} catch (err) {
+		console.log(err.message);
+	}
 }
 
 function getEpisodes(id) {
-  return new Promise((resolve, reject) => {
-    axios
-      .get(`${EPISODES}${id}/episodes`)
-      .then(function (response) {
-        resolve(response.data);
-      })
-      .catch(function (error) {
-        reject(error);
-      });
-  });
+	return new Promise((resolve, reject) => {
+		axios
+			.get(`${EPISODES}${id}/episodes`)
+			.then(function (response) {
+				resolve(response.data);
+			})
+			.catch(function (error) {
+				reject(error);
+			});
+	});
 }
 
-getData("vikings");
+getData('vikings');
